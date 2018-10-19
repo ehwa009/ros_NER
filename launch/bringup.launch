@@ -1,0 +1,3 @@
+<launch>
+    <node name="entity_tracker" type="node.py" pkg="entity_tracker" output="screen" />
+</launch>
