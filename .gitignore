@@ -107,5 +107,7 @@ venv.bak/
 logs/
 
 # trained files
-data/
+data/*.6B
+data/*.txt
+data/*.npz
 results/

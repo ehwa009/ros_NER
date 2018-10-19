@@ -3,7 +3,6 @@
 
 import rospkg
 import rospy
-warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 from model.data_utils import CoNLLDataset
 from model.ner_model import NERModel
@@ -76,5 +75,5 @@ class Trainer():
         model.train(train, dev)
 
 if __name__ == '__main__':
-    rospy.init_node('entity tagging', anonymous=False)
+    rospy.init_node('entity_tagging', anonymous=False)
     t = Trainer()

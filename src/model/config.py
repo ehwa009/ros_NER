@@ -79,7 +79,11 @@ class Config():
     # filename_test = "data/coNLL/eng/eng.testb.iob"
     # filename_train = "data/coNLL/eng/eng.train.iob"
 
-    filename_train = filename_test = filename_dev = os.path.join(root_path, 'data', 'train.txt')
+    # filename_train = filename_test = filename_dev = os.path.join(root_path, 'data', 'train.txt')
+
+    filename_dev = os.path.join(root_path, 'data', 'eng.testa')
+    filename_test = os.path.join(root_path, 'data', 'eng.testb')
+    filename_train = os.path.join(root_path, 'data', 'eng.train')
 
     max_iter = None # if not None, max number of examples in Dataset
 
@@ -90,7 +94,7 @@ class Config():
 
     # training
     train_embeddings = False
-    nepochs          = 100
+    nepochs          = 15
     dropout          = 0.5
     batch_size       = 20
     lr_method        = "adam"
