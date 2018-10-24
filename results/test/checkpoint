@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/ehwa009/catkin_ws/nao_ws/src/dialog_systems/ros_NER/results/test/model.weights"
+all_model_checkpoint_paths: "/home/ehwa009/catkin_ws/nao_ws/src/dialog_systems/ros_NER/results/test/model.weights"

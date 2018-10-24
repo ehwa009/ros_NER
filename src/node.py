@@ -6,6 +6,8 @@ import json
 import numpy as np
 import rospy
 import rospkg
+import warnings
+warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 from enum import Enum
 from mind_msgs.msg import Reply, RaisingEvents
@@ -25,6 +27,7 @@ class PosTagger:
             '<time>' : None,
         }
 
+        rospy.loginfo('\033[94m[%s]\033[0m initialized.'%rospy.get_name())        
         self.srv_read_data = rospy.Service('%s/read_utterance'%rospy.get_name(), 
                                     GoogleEntity, self.extract_entities)
 
@@ -43,9 +46,21 @@ class PosTagger:
     def extract_entities(self, utterance):
         utterance = utterance.utterance
 
-        if utterance != '':
+        if utterance == 'clear':
+            self.entities = {
+                '<patient_name>' : None,
+                '<address>' : None,
+                '<time>' : None,
+            }
+            entities = json.dumps(self.entities)
+            result_string = utterance
+        
+        elif utterance != '':
             tokenized = utterance.lower().strip().split(" ")
             preds = self.model.predict(tokenized)
+
+            # result
+            print(tokenized, preds)
 
             for p in preds:
                 if p == 'B-PER' or p == 'I-PER':
@@ -81,13 +96,14 @@ class PosTagger:
                         self.entities['<time>'] = tokenized[preds.index(p)]
                         tokenized = [r.replace(tokenized[preds.index(p)], 
                                             '<time>') for r in tokenized]
+            entities = json.dumps(self.entities)
+            result_string = ' '.join(tokenized)
         else:
             rospy.logerr('utterance empty')
-        
-        entities = json.dumps(self.entities)
-        result_string = ' '.join(tokenized)
-
+    
         return entities, result_string
+        
+
         
 
 if __name__ == '__main__':

@@ -110,4 +110,3 @@ logs/
 data/*.6B
 data/*.txt
 data/*.npz
-results/
